@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abc company | Photographer</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Libre Baskerville", serif;
+        background-color: #ffffff;
+        color: #333;
+      }
+
+      .photographer-name {
+        font-family: "Lora", serif;
+        font-size: 2.5rem;
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+
+      .photographer-title {
+        font-family: "Lora", serif;
+        font-size: 1rem;
+        color: #888;
+        letter-spacing: 1px;
+        margin-bottom: 2rem;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        padding: 3rem 2rem;
+        background-color: #fff;
+      }
+
+      .sidebar .nav-link {
+        color: #333;
+        font-size: 0.9rem;
+        padding: 0.25rem 0;
+      }
+
+      .sidebar .nav-link:hover {
+        color: #888;
+      }
+
+      .mobile-header {
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+      }
+
+      .image-gallery img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+      }
+
+      .image-gallery img:hover {
+        transform: scale(1.05);
+      }
+
+      .modal-lg,
+      .modal-xl {
+        max-width: 90%;
+      }
+
+      body {
+            font-family:"Libre Baskerville", serif;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+       
+        .photographer-name {
+            font-family: 'Lora', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 0;
+        }
+
+        .photographer-title {
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            color: #888;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            padding: 3rem 2rem;
+            background-color: #fff;
+        }
+
+        .sidebar .nav-link {
+            color: #333;
+            font-size: 0.9rem;
+            padding: 0.25rem 0;
+        }
+        
+        .sidebar .nav-link:hover {
+            color: #888;
+        }
+
+        .sidebar .social-icons a {
+            color: #333;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+        .sidebar .social-icons a:hover {
+            color: #888;
+        }
+        
+        .mobile-header {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .mobile-header .photographer-name {
+             font-size: 1.5rem;
+        }
+        
+        .mobile-header .photographer-title {
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+         .dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 0%;   
+  top: 10;       
+  min-width: 100px;
+  border: 0px ;
+ 
+}
+ul, li {
+  list-style: none; 
+  padding-left: 0;  
+  margin-left: 0;   
+}
+
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.offcanvas {
+  background-color: #c1bfbf; 
+  text-align: center;}
+
+
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    {% load static %}
+    <div class="container-fluid">
+        <div class="row">
+            <!-- DESKTOP  -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-none d-md-block sidebar">
+                <div class="position-sticky">
+                    <a href="{% url 'home' %}" style="color: #000; text-decoration:none"><h1 class="photographer-name" style="font-size: 25px;">Abc company</h1></a>
+                    <p class="photographer-title">Photographer</p>
+
+                    <ul class="nav flex-column mb-4">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'bio' %}">Bio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'of-love-war' %}">Of Love & War</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'its-what-i-do' %}">It's What I Do</a></li>
+                    </ul>
+                     <ul class="nav flex-column mb-4">
+                        <li>
+              <a data-bs-toggle="collapse" href="#workDropdown" role="button" aria-expanded="false" aria-controls="workDropdown" style="text-decoration: none; color:#333">
+                Work
+              </a>
+              <ul class="collapse submenu ms-3" id="workDropdown" style="text-decoration:none;">
+            {% for work in work %}
+                <li><a href="{% url 'state' work.pk  %}"  style="text-decoration: none; color:#272626">{{ work.name }}</a></li>
+                 {% endfor %}
+          
+              </ul>
+            </li> 
+           
+                        <li class="nav-item"><a class="nav-link" href="{% url 'fine-art-prints' %}">Fine Art Prints</a></li>
+                        <li>
+              <a data-bs-toggle="collapse" href="#infoDropdown" role="button" aria-expanded="false" aria-controls="workDropdown" style="text-decoration: none; color:#444444">
+                info
+              </a>
+              <ul class="collapse submenu ms-3" id="infoDropdown">
+                <li><a href="{% url 'contact' %}" style="text-decoration: none; color:#333">Contact</a></li>
+                <li><a href="{% url 'Exhibition' %}" style="text-decoration: none; color:#333">Exhibitions</a></li>
+                <li><a href="{% url 'awards-education' %}" style="text-decoration: none; color:#333">Awards & Education</a></li>
+              </ul>
+            </li>
+                    </ul>
+
+                    <div class="social-icons">
+                        <a href="#" ><i class="fab fa-instagram" style="color: #333;"></i></a>
+                        <a href="#"><i class="fab fa-twitter" style="color: #333;"></i></a>
+                    </div>
+                </div>
+            </nav>
+
+        <!-- MOBILE HEADER -->
+        <header class="d-md-none mobile-header">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <a href="{% url 'home' %}" style="color: #000; text-decoration:none"><h1 class="photographer-name">Abc company</h1></a>
+              <p class="photographer-title">Photographer</p>
+            </div>
+            <div>
+          <button
+            class="btn menu-btn"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#mobileNav"
+            aria-controls="mobileNav"
+          >
+            Menu
+          </button>
+        </div>
+
+        <div class="offcanvas offcanvas-end "  tabindex="-1" id="mobileNav" >
+
+    <button
+      type="button"
+      class="btn-close text-reset ms-auto"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+          <nav class="mt-3">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'bio' %}" style="color: #ffffff;">Bio</a>
+              </li><br><br>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'of-love-war' %}" style="color: #ffffff;">Of Love & War</a>
+              </li><br><br>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'its-what-i-do' %}" style="color: #ffffff;">It's What I Do</a>
+              </li><br><br>
+              <li class="nav-item"><a class="nav-link" data-bs-toggle="collapse" href="#mobileWork" role="button" aria-expanded="false" aria-controls="mobileWork" style="color: rgb(255, 255, 255);">Work</a>
+                <ul class="collapse ms-3" id="mobileWork">
+                 {% for work in work %}
+                <li><a href="{% url 'state' work.pk  %}"  style="text-decoration: none; color:#ffffff">{{ work.name }}</a></li>
+                 {% endfor %}
+                  
+                </ul>
+              <br><br>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'fine-art-prints' %}" style="color: #ffffff;">Fine Art Prints</a>
+              </li><br><br>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#mobileInfo" role="button" aria-expanded="false" aria-controls="mobileInfo" style="color: rgb(255, 255, 255);">Info</a>
+                <ul class="collapse ms-3" id="mobileInfo">
+                  <li><a class="nav-link" href="{% url 'contact' %}" style="color: rgb(255, 255, 255);">Contact</a></li>
+                  <li><a class="nav-link" href="{% url 'Exhibition' %}" style="color: rgb(255, 255, 255);">Exhibitions</a></li>
+                  <li><a class="nav-link" href="{% url 'awards-education' %}" style="color: rgb(255, 255, 255);">Awards</a></li>
+                  
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+</div>
+        </header>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-0 px-md-4">
+      <br />
+     
+      <div class="row image-gallery">
+        {% for img in images %}
+        <div class="col-md-4 col-sm-6 mb-4" style="width: 400px;">
+          <img src="{{ img.image.url }}" alt="{{ img.description|truncatewords:5 }}"
+               class="img-fluid gallery-item"
+               data-bs-target="#carouselModal" data-bs-slide-to="{{ forloop.counter0 }}" style="height: 300px;" >
+        </div>
+        {% endfor %}
+      </div>
+    </main>
+  </div>
+</div>
+<div class="modal fade" id="carouselModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen modal-dialog-centered bg-opacity-25">
+    <div class="modal-content" style="background-color: rgba(248, 248, 248, 0.75);">
+      
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <div id="workCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+
+            {% for img in images %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              <div class="d-flex justify-content-center align-items-center" 
+                   style="height:80vh; ">
+                <img src="{{ img.image.url }}" 
+                     class="img-fluid"
+                     style="height:100%; width:100%; object-fit:contain;">
+              </div>
+              <p class="text-center mt-2" style="color:#0c0b0b; font-size:15px;">
+                {{ img.description|default:""  }}
+              </p>
+            </div>
+            {% endfor %}
+
+          </div>
+
+          <!-- Controls -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#workCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#workCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  const carouselModal = new bootstrap.Modal(document.getElementById('carouselModal'));
+  galleryItems.forEach((item, index) => {
+    item.addEventListener('click', () => {
+      const carousel = document.getElementById('workCarousel');
+      const carouselInstance = bootstrap.Carousel.getOrCreateInstance(carousel);
+      carouselInstance.to(index); 
+      carouselModal.show();
+    });
+  });
+</script>
+</body>
+</html>
